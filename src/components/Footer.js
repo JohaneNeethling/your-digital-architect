@@ -39,7 +39,7 @@ const Footer = () => {
     <footer className={`footer ${isVisible ? "fade-in" : ""}`} ref={footerRef}>
       {/* Add fade-in class if the footer is visible */}
       <div className="footer-content">
-        <h2>The Digital Architect</h2> {/* Footer heading */}
+        <h2>Your Digital Architect</h2> {/* Footer heading */}
         <p>
           &copy; {new Date().getFullYear()} Johane Neethling. All rights
           reserved. {/* Current year and copyright notice */}
@@ -56,6 +56,14 @@ const Footer = () => {
           </a>
           <Link to="/mywork">Previous Works</Link>{" "}
           {/* Internal link to Previous Works */}
+          <a
+            href="https://github.com/JohaneNeethling"
+            rel="noopener noreferrer"
+            target="_blank"
+            aria-label="GitHub" // Accessibility label for the link
+          >
+            GitHub
+          </a>
           <a
             href="https://www.linkedin.com/in/johane-neethling-474179321/"
             rel="noopener noreferrer"

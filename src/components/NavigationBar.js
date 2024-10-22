@@ -25,7 +25,7 @@ const NavigationBar = () => {
       <Navbar.Brand as={Link} to="/" style={navbarBrandStyle}>
         {" "}
         {/* Brand name linked to home */}
-        The Digital Architect
+        Your Digital Architect
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />{" "}
       {/* Toggle button for mobile view */}

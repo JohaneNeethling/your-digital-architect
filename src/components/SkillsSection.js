@@ -1,74 +1,80 @@
-import React, { useEffect } from "react"; // Import React and useEffect hook
-import { Row, Col } from "react-bootstrap"; // Import Bootstrap grid components
-import { motion, useAnimation } from "framer-motion"; // Import Framer Motion for animations
-import { useInView } from "react-intersection-observer"; // To detect when elements are in view
-import "./SkillsSection.css"; // Import custom styles for the skills section
+import React, { useEffect, useState } from "react";
+import { Row, Col } from "react-bootstrap";
+import { motion } from "framer-motion";
+import "./SkillsSection.css";
 
 function Johane() {
-  // Animation variants for fade-in and sliding effect
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 }, // Initial state when not in view
-    visible: { opacity: 1, y: 0 }, // Final state when in view
+  const [visibleSkills, setVisibleSkills] = useState([]);
+
+  const skills = [
+    {
+      title: "Full-Stack Development",
+      desc: "I bring the complete package to web development, managing both the front-end and back-end of applications. Using technologies like React for dynamic interfaces, MongoDB for scalable data management, and Express to connect everything smoothly, I build robust web applications from the ground up.",
+    },
+    {
+      title: "Responsive UI/UX Design",
+      desc: "I craft visually appealing and user-friendly interfaces that adapt perfectly to any device. By leveraging HTML, CSS, and React, I ensure that every project is responsive, delivering a seamless experience whether you're on a desktop, tablet, or smartphone.",
+    },
+    {
+      title: "RESTful API Development",
+      desc: "Connecting the front end to the back end is my specialty. With Express and Mongoose, I develop fast, scalable, and secure RESTful APIs, ensuring that data flows efficiently between your interface and database, all while maintaining high performance and flexibility.",
+    },
+    {
+      title: "Database Design and Management",
+      desc: "Data is the backbone of any web application, and I make sure it's structured, stored, and accessed efficiently. With MongoDB, I design databases that not only scale with your application but are also optimized for performance, ensuring fast data retrieval and seamless integration.",
+    },
+    {
+      title: "Version Control and Collaboration",
+      desc: "I believe in clean, organized code, and teamwork. Using Git for version control, I manage and document changes efficiently, making sure that the codebase is always up-to-date. Collaborating through GitHub, I keep projects on track, whether I’m working solo or in a team.",
+    },
+    {
+      title: "Problem-Solving and Debugging",
+      desc: "Every web project comes with its challenges, and I’m skilled at tackling them head-on. From optimizing performance to fixing bugs and ensuring stability, my problem-solving mindset and debugging expertise help deliver smooth, high-quality applications.",
+    },
+  ];
+
+  const handleScroll = () => {
+    const skillsElements = document.querySelectorAll(".skill");
+    const newVisibleSkills = [];
+
+    skillsElements.forEach((element, index) => {
+      const rect = element.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        newVisibleSkills.push(index);
+      }
+    });
+
+    setVisibleSkills(newVisibleSkills);
   };
 
-  // Controls for scroll-triggered animations
-  const controls = useAnimation(); // Animation controls from Framer Motion
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 }); // Detect when 20% of the section is visible
-
   useEffect(() => {
-    if (inView) {
-      controls.start("visible"); // Start animation when the section is in view
-    }
-  }, [controls, inView]); // Dependencies: controls and inView
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div className="skills-container">
-      <div className="skillsListContainer" ref={ref}>
+      <div className="skillsListContainer">
         <Row>
-          {/* List of skills with titles and descriptions */}
-          {[
-            {
-              title: "Full-Stack Development",
-              desc: "Proficient in both front-end and back-end technologies, ensuring seamless user experiences and robust functionality.",
-            },
-            {
-              title: "Responsive Design",
-              desc: "Expertise in creating visually appealing websites that adapt beautifully to any device, enhancing user engagement.",
-            },
-            {
-              title: "JavaScript & React",
-              desc: "Strong command of JavaScript and React for building dynamic, interactive web applications.",
-            },
-            {
-              title: "HTML & CSS",
-              desc: "Solid foundation in HTML and CSS for crafting clean, accessible, and well-structured code.",
-            },
-            {
-              title: "Version Control with Git",
-              desc: "Familiarity with Git for efficient collaboration and version management on projects.",
-            },
-            {
-              title: "Client Collaboration",
-              desc: "Strong communication skills to understand client needs and deliver tailored solutions.",
-            },
-          ].map((skill, index) => (
+          {skills.map((skill, index) => (
             <Col xs={12} md={6} key={index}>
-              {" "}
-              {/* Responsive grid layout */}
               <motion.div
                 className="skill"
-                initial="hidden" // Set initial animation state
-                animate={controls} // Control the animation based on scroll
-                variants={fadeIn} // Apply fade-in variants
-                transition={{ duration: 0.5, delay: index * 0.1 }} // Animation duration and delay for staggered effect
-                whileHover={{ scale: 1.05 }} // Hover effect for scaling up
+                initial={{ opacity: 0, y: 50 }}
+                animate={
+                  visibleSkills.includes(index) ? { opacity: 1, y: 0 } : {}
+                }
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
               >
-                <h5 className="myh5">{skill.title}</h5> {/* Skill title */}
+                <h5 className="myh5">{skill.title}</h5>
                 <p
                   className="skillDesc"
-                  style={{ borderTop: "2px solid white", paddingTop: "10px" }} // Custom styling for description
+                  style={{ borderTop: "2px solid white", paddingTop: "10px" }}
                 >
-                  {skill.desc} {/* Skill description */}
+                  {skill.desc}
                 </p>
               </motion.div>
             </Col>
@@ -79,4 +85,4 @@ function Johane() {
   );
 }
 
-export default Johane; // Export the Johane component
+export default Johane;

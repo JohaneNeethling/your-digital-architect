@@ -13,21 +13,22 @@ function Johane() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate"); // Add animation class when element is in view
+            entry.target.classList.add("animate");
+          } else {
+            entry.target.classList.remove("animate");
           }
         });
       },
       {
-        threshold: 0.3, // Trigger when 30% of the element is in view
+        threshold: 0.3,
       }
     );
 
-    // Select all elements that should animate on scroll
     const elements =
       profileContainerRef.current.querySelectorAll(".animate-on-scroll");
-    elements.forEach((el) => observer.observe(el)); // Observe each element
+    elements.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect(); // Cleanup function to disconnect the observer
+    return () => observer.disconnect();
   }, []); // Empty dependency array to run the effect only on mount
 
   return (
@@ -49,10 +50,10 @@ function Johane() {
             {/* Bio text */}
             Currently at the top of my class with a 99% average, I thrive on
             challenges and continuously seek to expand my knowledge in web
-            development. My journey as an online architect allows me to design
-            and build digital homes that are not only visually appealing but
-            also functional and user-friendly. Feel free to check out my
-            previous works, or even my report card at{" "}
+            development. My journey allows me to design and build digital homes
+            that are not only visually appealing but also functional and
+            user-friendly. Feel free to check out my previous works, or even my
+            report card at{" "}
             <a
               href="https://www.hyperiondev.com/" // Link to HyperionDev
               rel="noopener noreferrer" // Prevents the new page from accessing the window object
