@@ -1,0 +1,80 @@
+.digital-home {
+  display: inline-block;
+  opacity: 0;
+  animation: fadeInUp 1.2s ease-out forwards;
+}
+
+.expandable-text {
+  transform: scale(1);
+  transition: transform 0.5s ease-in-out, color 0.3s ease-in-out,
+    letter-spacing 0.3s ease-in-out;
+}
+
+.digital-home:hover .expandable-text {
+  transform: scale(1.15);
+  letter-spacing: 10px;
+  color: #ffffff;
+  text-shadow: 0px 4px 30px rgb(14, 34, 185);
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) rotateY(-30deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateY(0);
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulsing-text {
+  animation: scale 2.5s infinite ease-in-out;
+}
+
+.animated-text {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeInLeft 1s ease-out forwards;
+  transition: color 0.4s ease, transform 0.4s ease;
+}
+
+.animated-text:hover {
+  transform: translateX(10px);
+  color: #ffffff;
+  text-shadow: 0px 4px 30px rgb(11, 95, 198);
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
